@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGRAFICAR | Cartelería LED, gráfica e impresión de gran formato</title>
+<meta name="description" content="Diseñamos, fabricamos e instalamos cartelería LED, letras corpóreas, impresión digital de gran formato y señalética en Florencio Varela, Buenos Aires.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07080d;
+    --bg-soft: #0d0f18;
+    --card: #11141f;
+    --card-border: rgba(0, 229, 255, 0.15);
+    --cyan: #00e5ff;
+    --magenta: #ff2bd6;
+    --wa: #25D366;
+    --wa-dark: #128C7E;
+    --text: #e8ecf5;
+    --muted: #8a93a8;
+    --radius: 18px;
+    --shadow-glow: 0 0 25px rgba(0, 229, 255, 0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  button, input, textarea { font-family: inherit; }
+
+  /* ---------- Fondo animado ---------- */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(0, 229, 255, 0.12), transparent 40%),
+      radial-gradient(circle at 85% 70%, rgba(255, 43, 214, 0.10), transparent 40%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .container { width: min(1180px, 92%); margin: 0 auto; }
+  section { padding: 110px 0; position: relative; }
+
+  .section-title {
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .section-title .accent {
+    background: linear-gradient(90deg, var(--cyan), var(--magenta));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .section-sub {
+    color: var(--muted);
+    font-size: 1.02rem;
+    max-width: 700px;
+    margin-bottom: 50px;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 14px;
+  }
+
+  /* Reveal al hacer scroll */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ---------- Botones ---------- */
+  .btn-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--wa);
+    color: #04150a;
+    font-weight: 700;
+    padding: 14px 26px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+  }
+  .btn-wa:hover { transform: translateY(-3px); background: #2fe373; box-shadow: 0 12px 32px rgba(37, 211, 102, 0.5); }
+  .btn-wa svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+  .btn-wa.small { padding: 9px 16px; font-size: 0.8rem; box-shadow: none; }
+
+  .pulse { animation: pulse 2.2s infinite; }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+    70% { box-shadow: 0 0 0 18px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 0;
+    transition: background 0.3s ease, padding 0.3s ease, backdrop-filter 0.3s ease;
+  }
+  header.scrolled {
+    background: rgba(7, 8, 13, 0.85);
+    backdrop-filter: blur(12px);
+    padding: 12px 0;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-weight: 900; font-size: 1.4rem; letter-spacing: 2px; }
+  .logo span { color: var(--cyan); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--cyan); }
+  .menu-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.6rem; cursor: pointer; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 120px;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.08;
+    margin-bottom: 22px;
+  }
+  .hero h1 .neon {
+    color: var(--cyan);
+    text-shadow: 0 0 18px rgba(0, 229, 255, 0.6);
+  }
+  .hero p.sub {
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 36px;
+    max-width: 560px;
+  }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+  .hero-cta .link-ghost {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--magenta);
+    padding-bottom: 3px;
+  }
+
+  .hero-visual {
+    position: relative;
+    height: 460px;
+  }
+  .hero-visual .glow-ring {
+    position: absolute;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    border: 1px dashed rgba(0, 229, 255, 0.35);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin 30s linear infinite;
+  }
+  .hero-visual .glow-ring.alt {
+    width: 260px; height: 260px;
+    border-color: rgba(255, 43, 214, 0.35);
+    animation-direction: reverse;
+    animation-duration: 22s;
+  }
+  @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+  .led-sign {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(3.5rem, 9vw, 6rem);
+    font-weight: 900;
+    color: var(--cyan);
+    text-shadow: 0 0 20px var(--cyan), 0 0 50px rgba(0, 229, 255, 0.5);
+    animation: flicker 4s infinite;
+    letter-spacing: 4px;
+  }
+  @keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+    20%, 24%, 55% { opacity: 0.55; }
+  }
+
+  .stat-card {
+    position: absolute;
+    background: rgba(17, 20, 31, 0.85);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    backdrop-filter: blur(8px);
+    box-shadow: var(--shadow-glow);
+    min-width: 190px;
+    animation: float 6s ease-in-out infinite;
+  }
+  .stat-card:nth-child(1) { top: 0; left: 0; }
+  .stat-card:nth-child(2) { top: 40%; right: -10px; animation-delay: -2s; border-color: rgba(255, 43, 214, 0.3); }
+  .stat-card:nth-child(3) { bottom: 0; left: 20px; animation-delay: -4s; }
+  .stat-card .num {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--cyan);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-card:nth-child(2) .num { color: var(--magenta); }
+  .stat-card .label { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+
+  .floating-wa {
+    position: fixed;
+    bottom: 26px;
+    right: 26px;
+    z-index: 200;
+  }
+  .floating-wa .btn-wa { padding: 16px 22px; }
+
+  /* ---------- Servicios (acordeón) ---------- */
+  .services { background: linear-gradient(180deg, transparent, var(--bg-soft) 20%, var(--bg-soft) 80%, transparent); }
+  .accordion { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .acc-item {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    align-self: start;
+  }
+  .acc-item:hover, .acc-item.open {
+    border-color: rgba(0, 229, 255, 0.5);
+    box-shadow: var(--shadow-glow);
+  }
+  .acc-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 22px;
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .acc-num {
+    flex-shrink: 0;
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(255, 43, 214, 0.2));
+    color: var(--cyan);
+    font-size: 0.85rem;
+    font-weight: 800;
+  }
+  .acc-title { flex: 1; }
+  .acc-icon {
+    font-size: 1.4rem;
+    color: var(--magenta);
+    transition: transform 0.35s ease;
+  }
+  .acc-item.open .acc-icon { transform: rotate(45deg); }
+
+  .acc-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .acc-inner { padding: 0 22px 22px; }
+  .acc-desc {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    padding-top: 4px;
+  }
+  .sub-list { list-style: none; margin-bottom: 18px; }
+  .sub-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.9rem;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .acc-item.open .sub-list li { opacity: 1; transform: none; }
+  .acc-item.open .sub-list li:nth-child(1) { transition-delay: 0.05s; }
+  .acc-item.open .sub-list li:nth-child(2) { transition-delay: 0.1s; }
+  .acc-item.open .sub-list li:nth-child(3) { transition-delay: 0.15s; }
+  .acc-item.open .sub-list li:nth-child(4) { transition-delay: 0.2s; }
+  .acc-item.open .sub-list li:nth-child(5) { transition-delay: 0.25s; }
+  .acc-item.open .sub-list li:nth-child(6) { transition-delay: 0.3s; }
+  .acc-item.open .sub-list li:nth-child(7) { transition-delay: 0.35s; }
+  .sub-list li .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .sub-list li .name { display: flex; align-items: center; flex: 1; }
+  .sub-list .mini-wa {
+    font-size: 0.72rem;
+    color: var(--wa);
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 4px 10px;
+    border: 1px solid rgba(37, 211, 102, 0.35);
+    border-radius: 50px;
+    transition: background 0.2s ease;
+  }
+  .sub-list .mini-wa:hover { background: rgba(37, 211, 102, 0.12); }
+
+  .acc-consult { width: 100%; justify-content: center; }
+  .acc-featured {
+    border-color: rgba(255, 43, 214, 0.35);
+    grid-column: 1 / -1;
+  }
+  .acc-featured .acc-num { color: var(--magenta); }
+  .acc-featured .acc-desc { color: var(--text); font-size: 0.98rem; }
+
+  /* ---------- Estándares ---------- */
+  .standards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+  }
+  .pillar {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 34px 26px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+  .pillar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(255, 43, 214, 0.18), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .pillar:hover {
+    transform: translateY(-10px);
+    border-color: var(--magenta);
+    box-shadow: 0 14px 40px rgba(255, 43, 214, 0.25);
+  }
+  .pillar:hover::before { opacity: 1; }
+  .pillar .p-num {
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(180deg, var(--cyan), rgba(0, 229, 255, 0.1));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 18px;
+  }
+  .pillar h3 { font-size: 1.08rem; font-weight: 700; margin-bottom: 12px; }
+  .pillar p { color: var(--muted); font-size: 0.9rem; }
+
+  /* ---------- Quiénes somos ---------- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .about-phrase {
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 22px;
+  }
+  .about-phrase span { color: var(--cyan); }
+  .about-text { color: var(--muted); margin-bottom: 30px; }
+  .badges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .badge:hover { border-color: var(--cyan); transform: translateY(-3px); }
+  .badge .ico {
+    width: 36px; height: 36px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    background: rgba(0, 229, 255, 0.12);
+    color: var(--cyan);
+    font-size: 1rem;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 34px;
+    margin-top: 10px;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 8px; top: 6px; bottom: 6px;
+    width: 2px;
+    background: linear-gradient(var(--cyan), var(--magenta));
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 30px;
+  }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -31px; top: 6px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--cyan);
+    box-shadow: 0 0 10px var(--cyan);
+  }
+  .tl-item:nth-child(even)::before { border-color: var(--magenta); box-shadow: 0 0 10px var(--magenta); }
+  .tl-item h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+  .tl-item p { color: var(--muted); font-size: 0.9rem; }
+
+  /* ---------- Portfolio (marquee) ---------- */
+  .portfolio { overflow: hidden; background: var(--bg-soft); }
+  .marquee {
+    display: flex;
+    width: max-content;
+    gap: 22px;
+    animation: marquee 40s linear infinite;
+  }
+  .marquee:hover { animation-play-state: paused; }
+  .marquee-item {
+    flex-shrink: 0;
+    width: 340px;
+    height: 240px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--card-border);
+    background: var(--card);
+  }
+  .marquee-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .marquee-item:hover img { transform: scale(1.08); }
+  .marquee-item .caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 14px 16px;
+    background: linear-gradient(transparent, rgba(7, 8, 13, 0.95));
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-50% - 11px)); }
+  }
+
+  /* ---------- Footer y contacto ---------- */
+  footer {
+    background: #04050a;
+    border-top: 1px solid var(--card-border);
+    padding: 90px 0 30px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr 1fr;
+    gap: 50px;
+    margin-bottom: 50px;
+  }
+  .footer-brand h3 { font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 12px; }
+  .footer-brand h3 span { color: var(--cyan); }
+  .footer-brand p { color: var(--muted); font-size: 0.9rem; margin-bottom: 22px; }
+  .socials { display: flex; gap: 12px; }
+  .socials a {
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    color: var(--text);
+    transition: all 0.25s ease;
+  }
+  .socials a:hover { color: var(--cyan); border-color: var(--cyan); box-shadow: var(--shadow-glow); transform: translateY(-3px); }
+  .socials svg { width: 20px; height: 20px; fill: currentColor; }
+
+  .footer-col h4 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--cyan);
+    margin-bottom: 18px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 12px; }
+  .footer-col a, .footer-col .info { color: var(--muted); font-size: 0.9rem; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--magenta); }
+  .footer-col .info strong { color: var(--text); display: block; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; }
+
+  .contact-form {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .contact-form h4 { font-size: 0.95rem; font-weight: 700; }
+  .contact-form input, .contact-form textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 0.9rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .contact-form textarea { resize: vertical; min-height: 90px; }
+  .contact-form input:focus, .contact-form textarea:focus {
+    outline: none;
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.15);
+  }
+  .contact-form .btn-wa { justify-content: center; }
+  .form-error { color: var(--magenta); font-size: 0.8rem; display: none; }
+
+  .copyright {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 26px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1024px) {
+    .standards-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 860px) {
+    section { padding: 80px 0; }
+    .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 50px; }
+    .hero-visual { height: 380px; }
+    .stat-card { min-width: 150px; padding: 14px 16px; }
+    .stat-card .num { font-size: 1.6rem; }
+    .stat-card:nth-child(2) { right: 0; }
+    .accordion { grid-template-columns: 1fr; }
+    .acc-featured { grid-column: auto; }
+    .nav-links {
+      position: fixed;
+      top: 0; right: -100%;
+      height: 100vh;
+      width: 75%;
+      background: var(--bg-soft);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 34px;
+      transition: right 0.35s ease;
+      border-left: 1px solid var(--card-border);
+    }
+    .nav-links.active { right: 0; }
+    .nav-links a { font-size: 1.05rem; }
+    .menu-toggle { display: block; z-index: 150; }
+  }
+
+  @media (max-width: 600px) {
+    .standards-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .badges { grid-template-columns: 1fr; }
+    .hero-visual { height: 320px; }
+    .stat-card { min-width: 130px; }
+    .stat-card .label { font-size: 0.7rem; }
+    .stat-card:nth-child(1) { left: -4px; }
+    .stat-card:nth-child(3) { left: 4px; }
+    .led-sign { font-size: 3rem; }
+    .marquee-item { width: 260px; height: 190px; }
+    .floating-wa { bottom: 16px; right: 16px; }
+    .floating-wa .btn-wa { padding: 14px 18px; font-size: 0.85rem; }
+    .sub-list li { flex-wrap: wrap; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header id="header">
+  <div class="container nav">
+    <a href="#inicio" class="logo">AGRA<span>FICAR</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#servicios">Qué hacemos</a></li>
+      <li><a href="#estandares">Estándares de trabajo</a></li>
+      <li><a href="#quienes">Quiénes somos</a></li>
+      <li><a href="#historia">Nuestra historia</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">&#9776;</button>
+  </div>
+</header>
+
+<!-- ============ 1. HERO ============ -->
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div class="hero-text reveal">
+      <span class="eyebrow">Florencio Varela, Buenos Aires</span>
+      <h1>Hacemos visible el potencial de tu marca con <span class="neon">tecnología LED</span> y gráfica de alto impacto.</h1>
+      <p class="sub">Diseñamos, fabricamos e instalamos cartelería que no pasa desapercibida: letras corpóreas luminosas, impresión digital de gran formato y señalética pensada para durar.</p>
+      <div class="hero-cta">
+        <a href="#" class="btn-wa pulse js-wa-main" data-wa-text="Hola AGRAFICAR! Vi su página web y quiero cotizar un trabajo">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6A12 12 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.3-6.3-3.5-8.5zM12 22c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A10 10 0 1 1 12 22zm5.5-7.5c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.4.9 2.9.8 3.4.7.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/></svg>
+          Cotizar por WhatsApp
+        </a>
+        <a href="#servicios" class="link-ghost">Ver servicios</a>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal">
+      <div class="glow-ring"></div>
+      <div class="glow-ring alt"></div>
+      <div class="led-sign">LED</div>
+      <div class="stat-card">
+        <div class="num" data-count="100" data-suffix="%">0%</div>
+        <div class="label">Diseño + fabricación propia</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">LED</div>
+        <div class="label">Nuestra especialidad</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">24/7</div>
+        <div class="label">Soporte post-instalación</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Botón flotante -->
+<div class="floating-wa">
+  <a href="#" class="btn-wa pulse js-wa-main" data-wa-text="Hola AGRAFICAR! Vi su página web y quiero cotizar un trabajo">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6A12 12 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.3-6.3-3.5-8.5z"/></svg>
+    Cotizar por WhatsApp
+  </a>
+</div>
+
+<!-- ============ 2. SERVICIOS ============ -->
+<section class="services" id="servicios">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">Catálogo</span>
+      <h2 class="section-title">Nuestros servicios <span class="accent">¿Qué hacemos?</span></h2>
+      <p class="section-sub">Explorá cada categoría. Pasá el cursor o hacé clic para desplegar los detalles de cada producto.</p>
+    </div>
+    <div class="accordion" id="accordion"></div>
+  </div>
+</section>
+
+<!-- ============ 3. ESTÁNDARES ============ -->
+<section id="estandares">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">Compromiso</span>
+      <h2 class="section-title">Estándares de <span class="accent">trabajo</span></h2>
+      <p class="section-sub">Cuatro pilares que sostienen cada proyecto, de punta a punta.</p>
+    </div>
+    <div class="standards-grid">
+      <article class="pillar reveal">
+        <div class="p-num">01</div>
+        <h3>Asesoramiento y diseño</h3>
+        <p>Relevamos el espacio y proponemos la mejor solución visual antes de fabricar.</p>
+      </article>
+      <article class="pillar reveal">
+        <div class="p-num">02</div>
+        <h3>Materiales de máxima durabilidad</h3>
+        <p>Componentes pensados para resistir intemperie, sol y uso intensivo.</p>
+      </article>
+      <article class="pillar reveal">
+        <div class="p-num">03</div>
+        <h3>Precisión en corte y terminaciones</h3>
+        <p>Control de calidad en cada pieza antes de salir del taller.</p>
+      </article>
+      <article class="pillar reveal">
+        <div class="p-num">04</div>
+        <h3>Instalación profesional y garantía</h3>
+        <p>Montaje a cargo de nuestro equipo, con garantía escrita en cada trabajo.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. QUIÉNES SOMOS ============ -->
+<section id="quienes" style="padding-bottom: 60px;">
+  <div class="container about-grid">
+    <div class="reveal">
+      <span class="eyebrow">Quiénes somos</span>
+      <h2 class="about-phrase">Pasión por el detalle, <span>tecnología al servicio de tu marca</span></h2>
+      <p class="about-text">Somos AGRAFICAR, un equipo dedicado a la cartelería a medida: letras corpóreas, cartelería LED, impresión digital de gran formato, señalética comercial e industrial, y trabajos rígidos en impresión UV. Diseñamos, fabricamos e instalamos de punta a punta. Acompañamos cada proyecto desde la idea hasta la instalación final, con equipamiento tecnológico propio.</p>
+      <div class="badges">
+        <div class="badge"><span class="ico">&#9881;</span>Diseño y fabricación 100% propia</div>
+        <div class="badge"><span class="ico">&#128666;</span>Instalación con equipo propio</div>
+        <div class="badge"><span class="ico">&#9728;</span>Materiales aptos para intemperie</div>
+        <div class="badge"><span class="ico">&#10004;</span>Garantía por escrito</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="historia" style="padding-top: 60px;">
+  <div class="container about-grid">
+    <div class="reveal">
+      <span class="eyebrow">Nuestra historia</span>
+      <h2 class="section-title">¿Cómo nació <span class="accent">AGRAFICAR?</span></h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <h4>El comienzo</h4>
+        <p>Más de una década de trayectoria en el rubro gráfico y marketing en Florencio Varela.</p>
+      </div>
+      <div class="tl-item">
+        <h4>El giro a LED</h4>
+        <p>Especialización en cartelería LED e impresión 3D con equipamiento propio.</p>
+      </div>
+      <div class="tl-item">
+        <h4>Taller propio</h4>
+        <p>Inauguración de taller propio y crecimiento continuo proyecto a proyecto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. PORTFOLIO ============ -->
+<section class="portfolio" id="proyectos">
+  <div class="container reveal" style="margin-bottom: 50px;">
+    <span class="eyebrow">Portfolio</span>
+    <h2 class="section-title">Proyectos <span class="accent">en movimiento</span></h2>
+    <p class="section-sub" style="margin-bottom: 0;">Una muestra de trabajos terminados e instalados.</p>
+  </div>
+  <!--
+    PARA CAMBIAR LAS IMÁGENES: reemplazá los valores de "src" y "title" en el arreglo
+    PORTFOLIO_ITEMS dentro del bloque <script> (al final del archivo).
+  -->
+  <div class="marquee" id="marquee"></div>
+</section>
+
+<!-- ============ 6. FOOTER Y CONTACTO ============ -->
+<footer id="contacto">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>AGRA<span>FICAR</span></h3>
+        <p>Cartelería LED, gráfica e impresión de gran formato. Diseño, fabricación e instalación, de punta a punta.</p>
+        <div class="socials">
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4A6.2 6.2 0 0 0 12 5.8zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.1C24 5.4 18.6 0 12 0S0 5.4 0 12.1C0 18.1 4.4 23.1 10.1 24v-8.4H7.1v-3.5h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v2.9h-1.5c-1.5 0-2 .9-2 1.9v2.3h3.3l-.5 3.5h-2.8V24C19.6 23.1 24 18.1 24 12.1z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#servicios">Qué hacemos</a></li>
+          <li><a href="#estandares">Estándares de trabajo</a></li>
+          <li><a href="#quienes">Quiénes somos</a></li>
+          <li><a href="#historia">Nuestra historia</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <div style="margin-top: 26px;">
+          <h4>Datos de contacto</h4>
+          <ul>
+            <li><span class="info"><strong>Teléfono</strong><a href="https://wa.me/5491149725945" target="_blank" rel="noopener">11 4972-5945</a></span></li>
+            <li><span class="info"><strong>Email</strong><a href="mailto:agraficar24@gmail.com">agraficar24@gmail.com</a></span></li>
+            <li><span class="info"><strong>Ubicación</strong>Florencio Varela, Buenos Aires</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <h4>Consulta rápida por WhatsApp</h4>
+        <input type="text" id="cfName" placeholder="Nombre" autocomplete="name" required>
+        <input type="text" id="cfCompany" placeholder="Empresa" autocomplete="organization" required>
+        <textarea id="cfDetail" placeholder="Detalle de tu consulta" required></textarea>
+        <span class="form-error" id="formError">Completá todos los campos para enviar la consulta.</span>
+        <button type="submit" class="btn-wa">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6A12 12 0 0 0 12 24c6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+          Enviar consulta por WhatsApp
+        </button>
+      </form>
+    </div>
+
+    <div class="copyright">&copy; <span id="year"></span> AGRAFICAR. Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ===================== CONFIGURACIÓN ===================== */
+  var WA_NUMBER = "5491149725945";
+  var WA_BASE = "https://wa.me/" + WA_NUMBER;
+
+  // Reemplazá las rutas de imágenes por tus trabajos reales (ej: "img/trabajo1.jpg")
+  var PORTFOLIO_ITEMS = [
+    { src: "img/trabajo1.jpg", title: "Letras corpóreas con LED frontal" },
+    { src: "img/trabajo2.jpg", title: "Tótem publicitario" },
+    { src: "img/trabajo3.jpg", title: "Fachada comercial en ACM" },
+    { src: "img/trabajo4.jpg", title: "Cartel backlight" },
+    { src: "img/trabajo5.jpg", title: "Señalética interior" },
+    { src: "img/trabajo6.jpg", title: "Vinilo para vidriera" }
+  ];
+
+  var CATEGORIES = [
+    { name: "Letras corpóreas y logos", items: ["Letras con iluminación LED frontal", "Letras con iluminación difusa", "Letras con halo de luz trasera", "Letras corpóreas sin iluminación", "Logos e isotipos corpóreos", "Letras en acrílico, chapa, PETG y Polyfan"] },
+    { name: "Carteles luminosos y marquesinas", items: ["Carteles frontlight", "Carteles backlight retroiluminados", "Marquesinas luminosas", "Carteles con frente de acrílico", "Carteles con lona translúcida", "Carteles tipo caja de luz"] },
+    { name: "Carteles salientes y bifaz", items: ["Carteles redondos tipo pastilla", "Carteles cuadrados bifaz", "Carteles rectangulares salientes", "Carteles salientes iluminados", "Carteles salientes sin iluminación"] },
+    { name: "Tótems y cartelería exterior", items: ["Tótems publicitarios", "Tótems identificatorios", "Carteles de ingreso", "Carteles direccionales exteriores", "Carteles sobre estructuras metálicas"] },
+    { name: "Fachadas comerciales", items: ["Revestimientos en ACM / Alucobond", "Frentes comerciales en chapa", "Marquesinas y estructuras", "Combinación de revestimientos y corpóreos", "Renovación integral de fachadas"] },
+    { name: "Vinilos y gráfica para vidrieras", items: ["Vinilo de corte", "Vinilo impreso y laminado", "Microperforados para vidrieras", "Vinilo esmerilado", "Ploteo de vidrieras y paredes", "Gráfica para vehículos", "Aplicación de horarios, logos y promociones"] },
+    { name: "Señalética y cartelería interior", items: ["Placas identificatorias", "Carteles para puertas y ambientes", "Numeración de pisos y unidades", "Señalética direccional", "Íconos de baños y servicios", "Carteles informativos y reglamentarios", "Señalización personalizada para edificios"] },
+    { name: "Lonas, banners y publicidad impresa", items: ["Lonas Frontlight", "Lonas Backlight", "Banners publicitarios", "Portabanners y roll-ups", "Lonas con terminaciones y ojales", "Gráfica para eventos"] },
+    { name: "Stickers, etiquetas y gráfica comercial", items: ["Stickers personalizados", "Etiquetas para productos y packaging", "Calcos troquelados", "Vinilos impresos con corte", "Stickers en distintas medidas y cantidades", "Flyers, folletos y afiches"] },
+    { name: "Impresión 3D y piezas personalizadas", items: ["Letras y logos impresos en 3D", "Piezas para cartelería", "Isotipos y señalética personalizada", "Prototipos y piezas técnicas", "Productos promocionales y personalizados"] },
+    { name: "Proyectos integrales de cartelería", featured: true, desc: "¿Necesitás resolver toda la imagen de tu local o empresa? Desarrollamos proyectos que combinan fachadas, letras corpóreas, iluminación, señalética y gráfica comercial. Ideal para empresas, constructoras, estudios de arquitectura, cadenas comerciales y aperturas de locales.", items: [] }
+  ];
+
+  /* ===================== UTILIDADES ===================== */
+  function waLink(text) {
+    return WA_BASE + "?text=" + encodeURIComponent(text);
+  }
+
+  function escapeHTML(str) {
+    return String(str).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  /* ===================== WHATSAPP PRINCIPAL ===================== */
+  document.querySelectorAll(".js-wa-main").forEach(function (el) {
+    el.setAttribute("href", waLink(el.getAttribute("data-wa-text")));
+    el.setAttribute("target", "_blank");
+    el.setAttribute("rel", "noopener");
+  });
+
+  /* ===================== ACORDEÓN DE SERVICIOS ===================== */
+  var accordion = document.getElementById("accordion");
+  var isTouch = window.matchMedia("(hover: none)").matches;
+
+  CATEGORIES.forEach(function (cat, i) {
+    var num = String(i + 1).padStart(2, "0");
+    var wrapper = document.createElement("div");
+    wrapper.className = "acc-item reveal" + (cat.featured ? " acc-featured" : "");
+
+    var subsHTML = "";
+    if (!cat.featured) {
+      subsHTML = '<ul class="sub-list">' + cat.items.map(function (item) {
+        return '<li><span class="name"><span class="dot"></span>' + escapeHTML(item) + '</span>' +
+          '<a class="mini-wa" target="_blank" rel="noopener" href="' +
+          waLink("Hola AGRAFICAR! Quiero consultar sobre " + item) + '">Consultar</a></li>';
+      }).join("") + "</ul>";
+    }
+
+    wrapper.innerHTML =
+      '<button class="acc-header" aria-expanded="false">' +
+        '<span class="acc-num">' + num + '</span>' +
+        '<span class="acc-title">' + escapeHTML(cat.name) + '</span>' +
+        '<span class="acc-icon">+</span>' +
+      '</button>' +
+      '<div class="acc-body"><div class="acc-inner">' +
+        (cat.desc ? '<p class="acc-desc">' + escapeHTML(cat.desc) + '</p>' : '') +
+        subsHTML +
+        '<a class="btn-wa small acc-consult" target="_blank" rel="noopener" href="' +
+          waLink("Hola AGRAFICAR! Quiero consultar sobre " + cat.name) + '">' +
+          'Consultar sobre ' + escapeHTML(cat.name) + '</a>' +
+      '</div></div>';
+
+    accordion.appendChild(wrapper);
+
+    var header = wrapper.querySelector(".acc-header");
+    var body = wrapper.querySelector(".acc-body");
+
+    function openItem() {
+      wrapper.classList.add("open");
+      header.setAttribute("aria-expanded", "true");
+      body.style.maxHeight = body.scrollHeight + "px";
+    }
+    function closeItem() {
+      wrapper.classList.remove("open");
+      header.setAttribute("aria-expanded", "false");
+      body.style.maxHeight = "0";
+    }
+
+    // Hover en escritorio, tap en móvil/táctil
+    if (!isTouch) {
+      wrapper.addEventListener("mouseenter", openItem);
+      wrapper.addEventListener("mouseleave", closeItem);
+    }
+    header.addEventListener("click", function () {
+      if (wrapper.classList.contains("open")) closeItem(); else openItem();
+    });
+
+    wrapper._open = openItem;
+    wrapper._close = closeItem;
+  });
+
+  // Ajusta altura si cambia el contenido (ej: rotación de dispositivo)
+  window.addEventListener("resize", function () {
+    accordion.querySelectorAll(".acc-item.open .acc-body").forEach(function (b) {
+      b.style.maxHeight = b.scrollHeight + "px";
+    });
+  });
+
+  /* ===================== CARRUSEL INFINITO ===================== */
+  var marquee = document.getElementById("marquee");
+  var track = PORTFOLIO_ITEMS.concat(PORTFOLIO_ITEMS); // duplicado para loop continuo
+  track.forEach(function (item) {
+    var div = document.createElement("div");
+    div.className = "marquee-item";
+    div.innerHTML =
+      '<img src="' + escapeHTML(item.src) + '" alt="' + escapeHTML(item.title) + '" loading="lazy" ' +
+      'onerror="this.style.display=\'none\'">' +
+      '<div class="caption">' + escapeHTML(item.title) + '</div>';
+    marquee.appendChild(div);
+  });
+
+  /* ===================== FORMULARIO A WHATSAPP ===================== */
+  var form = document.getElementById("contactForm");
+  var formError = document.getElementById("formError");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = document.getElementById("cfName").value.trim();
+    var company = document.getElementById("cfCompany").value.trim();
+    var detail = document.getElementById("cfDetail").value.trim();
+    if (!name || !company || !detail) {
+      formError.style.display = "block";
+      return;
+    }
+    formError.style.display = "none";
+    var msg = "Hola AGRAFICAR! Mi nombre es " + name + ", de " + company + ", y quiero consultar por: " + detail;
+    window.open(waLink(msg), "_blank", "noopener");
+  });
+
+  /* ===================== HEADER, MENÚ MÓVIL, ANIMACIONES ===================== */
+  var header = document.getElementById("header");
+  var navLinks = document.getElementById("navLinks");
+  var menuToggle = document.getElementById("menuToggle");
+
+  window.addEventListener("scroll", function () {
+    header.classList.toggle("scrolled", window.scrollY > 40);
+  });
+
+  menuToggle.addEventListener("click", function () {
+    navLinks.classList.toggle("active");
+    menuToggle.innerHTML = navLinks.classList.contains("active") ? "&times;" : "&#9776;";
+  });
+  navLinks.querySelectorAll("a").forEach(function (a) {
+    a.addEventListener("click", function () {
+      navLinks.classList.remove("active");
+      menuToggle.innerHTML = "&#9776;";
+    });
+  });
+
+  // Reveal al hacer scroll
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll(".reveal").forEach(function (el) { revealObserver.observe(el); });
+
+  // Contadores animados (hero)
+  var counters = document.querySelectorAll("[data-count]");
+  var counterObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      var target = parseInt(el.getAttribute("data-count"), 10);
+      var suffix = el.getAttribute("data-suffix") || "";
+      var start = null;
+      function step(ts) {
+        if (!start) start = ts;
+        var progress = Math.min((ts - start) / 1400, 1);
+        el.textContent = Math.floor(progress * target) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      counterObserver.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(function (el) { counterObserver.observe(el); });
+
+  // Año automático en el footer
+  document.getElementById("year").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
